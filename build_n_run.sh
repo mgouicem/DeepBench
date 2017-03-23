@@ -21,7 +21,7 @@ fi
 MKLDNNROOT=/project/mgouicem/MKL-DNN/ipl_mkl_dnn-master/install/
 export LD_LIBRARY_PATH=$MKLDNNROOT/lib:$LD_LIBRARY_PATH
 
-LIBXSMMROOT=/project/mgouicem/MKL-DNN/libxsmm
+export LIBXSMMROOT=/project/mgouicem/MKL-DNN/libxsmm
 
 function run_bench_mkl {
     local library_tested=$1
@@ -36,7 +36,7 @@ $library_tested  Convolution - ${num_threads} threads
 started...
 EOF
 
-        ./std_conv_bench 0 --csv-output >> $output_file
+        ./std_conv_bench 0 --csv-output >> $workdir/logs/$output_file
         
         cat <<EOF
 done
@@ -47,7 +47,6 @@ EOF
 
 timestamp=$(date +%Y%m%d_%H%M%S)
 
-# MKL bench
 cd $workdir/code/intel/convolution/mkl_conv
 
 ## Pure MKL bench
