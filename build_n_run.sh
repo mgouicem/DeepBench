@@ -6,7 +6,6 @@ workdir=/project/mgouicem/MKL-DNN/DeepBench/
 #takes the parameters from the command line
 eval "$@"
 
-
 input_h=${input_h:-input_topologies.h}
 # detects the number of physical cores
 nb_cores=${nb_cores:-$(lscpu | awk '/Socket/{ print $2*nc } /Core/{ nc=$4} ')}
@@ -59,21 +58,21 @@ timestamp=$(date +%Y%m%d_%H%M%S)
 cd $workdir/code/intel/convolution/mkl_conv
 
 ## Pure MKL bench
-if [[ grep -wq mkl <<< $run ]]
+if $(echo $run | grep -wq mkl)
 then
     make -B clean all INPUT_H=$input_h CONVLIB=MKL
     run_bench_mkl "MKL" "${timestamp}-mkl.csv"
 fi
 
 ## MKL-DNN bench
-if [[ grep -wq mkldnn <<< $run ]]
+if $(echo $run | grep -wq mkldnn)
 then
     make -B clean all INPUT_H=$input_h CONVLIB=MKLDNN MKLDNNROOT=$MKLDNNROOT
     run_bench_mkl "MKL-DNN" "${timestamp}-mkldnn.csv"
 fi
 
 # libxsmm bench
-if [[ grep -wq libxsmm <<< $run ]]
+if $(echo $run | grep -wq libxsmm)
 then
     make -B clean all INPUT_H=$input_h CONVLIB=LIBXSMM LIBXSMMROOT=$LIBXSMMROOT
     run_bench_mkl "LIBXSMM" "${timestamp}-libxsmm.csv"
