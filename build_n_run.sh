@@ -51,12 +51,12 @@ cd $workdir/code/intel/convolution/mkl_conv
 
 ## Pure MKL bench
 make -B clean all INPUT_H=$input_h CONVLIB=MKL
-run_bench_mkl "MKL" mkl-${timestamp}.csv
+run_bench_mkl "MKL" "${timestamp}-mkl.csv"
 
 ## MKL-DNN bench
 make -B clean all INPUT_H=$input_h CONVLIB=MKLDNN
-run_bench_mkl "MKL-DNN" "mkldnn-${timestamp}.csv"
+run_bench_mkl "MKL-DNN" "${timestamp}-mkldnn.csv"
 
 # libxsmm bench
 make -B clean all INPUT_H=$input_h CONVLIB=LIBXSMM LIBXSMMROOT=$LIBXSMMROOT
-run_bench_mkl "LIBXSMM" "libxsmm-${timestamp}.csv"
+run_bench_mkl "LIBXSMM" "${timestamp}-libxsmm.csv"

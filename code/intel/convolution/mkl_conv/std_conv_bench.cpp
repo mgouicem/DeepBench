@@ -491,7 +491,7 @@ int main(int argc, char **argv)
         = {"w/ padding in flops", "w/o padding in flops"};
 
     if (csv_output)
-        printf("num,conv_mode_strs,skip_padding,name,minibatch,w,h,ic,oc,fw,fh,stride,stride,padd,padd,impl,min_ms,max_gflops,avg_ms,avg_gflops\n");
+        printf("conv_mode_strs,skip_padding,name,minibatch,w,h,ic,oc,fw,fh,stride,stride,padd,padd,min_ms,max_gflops,avg_ms,avg_gflops\n");
     for (auto m : {FWD_CONVOLUTION, BWD_F_CONVOLUTION, BWD_D_CONVOLUTION}) {
         if (!csv_output)
             printf(" %s Convolution\n", conv_mode_strs[m]);
