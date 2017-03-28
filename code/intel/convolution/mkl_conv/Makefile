@@ -74,7 +74,7 @@ std_conv_bench : std_conv_bench.o
 	$(CXX) $(CXXFLAGS) $(LFLAGS) $^  $(EXTRALIB)  -o $@
 
 std_conv_bench.o : std_conv_bench.cpp input.h
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c -o $@ $<
 
 clean :
 	rm -f *.o std_conv_bench.o std_conv_bench

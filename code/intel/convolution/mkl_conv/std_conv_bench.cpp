@@ -320,7 +320,16 @@ static bench_result bench_conv(conv_problem prob, int mode, bool skip_padding)
 #else
     conv_desc.threads = 1;
 #endif
-    conv_desc.algo = LIBXSMM_DNN_CONV_ALGO_AUTO;
+
+#if LIBXSMM_WINOGRAD
+#define CONV_ALGO LIBXSMM_DNN_CONV_ALGO_WINOGRAD
+#elif LIBXSMM_DIRECT
+#define CONV_ALGO LIBXSMM_DNN_CONV_ALGO_DIRECT
+#else
+#define CONV_ALGO LIBXSMM_DNN_CONV_ALGO_AUTO
+#endif
+
+    conv_desc.algo = CONV_ALGO;
     conv_desc.buffer_format = LIBXSMM_DNN_TENSOR_FORMAT_LIBXSMM;
     conv_desc.filter_format = LIBXSMM_DNN_TENSOR_FORMAT_LIBXSMM;
     conv_desc.fuse_ops = LIBXSMM_DNN_CONV_FUSE_NONE;
