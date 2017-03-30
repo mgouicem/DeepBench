@@ -22,6 +22,8 @@
 #include <vector>
 #include <string>
 
+#include <omp.h>
+
 #ifndef INPUT_H
 #error INPUT_H is not defined
 #endif
@@ -500,15 +502,15 @@ int main(int argc, char **argv)
         = {"w/ padding in flops", "w/o padding in flops"};
 
     if (csv_output)
-        printf("conv_mode_strs,skip_padding,name,minibatch,w,h,ic,oc,fw,fh,stride,stride,padd,padd,min_ms,max_gflops,avg_ms,avg_gflops\n");
+        printf("thread_cnt,conv_mode_strs,skip_padding,name,minibatch,w,h,ic,oc,fw,fh,stride,stride,padd,padd,min_ms,max_gflops,avg_ms,avg_gflops\n");
     for (auto m : {FWD_CONVOLUTION, BWD_F_CONVOLUTION, BWD_D_CONVOLUTION}) {
         if (!csv_output)
             printf(" %s Convolution\n", conv_mode_strs[m]);
         for (const auto& p : conv_problems) {
             auto r = bench_conv(p, m, skip_padding);
             if (csv_output)
-                printf("%s,%d,\"%s\",%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%e,%e,%e,%e\n",
-                        conv_mode_strs[m], skip_padding, p.name,
+                printf("%d, %s,%d,\"%s\",%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%e,%e,%e,%e\n",
+		       omp_get_max_threads(),conv_mode_strs[m], skip_padding, p.name,
                         p.minibatch, p.w, p.h, p.ic, p.oc, p.fw, p.fh,
                         p.stride, p.stride, p.padd, p.padd,
                         r.min_ms, r.max_gflops, r.avg_ms, r.avg_gflops);

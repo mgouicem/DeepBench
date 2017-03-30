@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#set -x
+
 workdir=$(pwd)
 
 
@@ -36,7 +38,7 @@ function run_bench_mkl {
     local library_tested=$1
     local output_file=$2
 
-    for num_threads in "$nb_cores"
+    for num_threads in $nb_cores
     do
         export OMP_NUM_THREADS=${num_threads}
         cat <<EOF 
@@ -61,20 +63,20 @@ cd $workdir/code/intel/convolution/mkl_conv
 ## Pure MKL bench
 if $(echo $run | grep -wq mkl)
 then
-    make -B clean all INPUT_H=$input_h CONVLIB=MKL CPPFLAGS=$CPPFLAGS
+    make -B clean all INPUT_H=$input_h CONVLIB=MKL CPPFLAGS="$CPPFLAGS"
     run_bench_mkl "MKL" "${timestamp}-mkl${file_suffix}.csv"
 fi
 
 ## MKL-DNN bench
 if $(echo $run | grep -wq mkldnn)
 then
-    make -B clean all INPUT_H=$input_h CONVLIB=MKLDNN MKLDNNROOT=$MKLDNNROOT CPPFLAGS=$CPPFLAGS
+    make -B clean all INPUT_H=$input_h CONVLIB=MKLDNN MKLDNNROOT=$MKLDNNROOT CPPFLAGS="$CPPFLAGS"
     run_bench_mkl "MKL-DNN" "${timestamp}-mkldnn${file_suffix}.csv"
 fi
 
 # libxsmm bench
 if $(echo $run | grep -wq libxsmm)
 then
-    make -B clean all INPUT_H=$input_h CONVLIB=LIBXSMM LIBXSMMROOT=$LIBXSMMROOT CPPFLAGS=$CPPFLAGS
+    make -B clean all INPUT_H=$input_h CONVLIB=LIBXSMM LIBXSMMROOT=$LIBXSMMROOT CPPFLAGS="$CPPFLAGS"
     run_bench_mkl "LIBXSMM" "${timestamp}-libxsmm${file_suffix}.csv"
 fi
