@@ -17,9 +17,9 @@ pre_cmd=$(numactl --hardware | awk '/node [0-9] cpus:$/ {print "numactl -m "$2; 
 run=${run:-mkl,mkldnn,libxsmm}
 
 tools_dir=/nfs/site/proj/mkl/mirror/NS/MKLQA/tools/setenv
-export MKLDNNROOT=/export/users/mgouicem/ipl_mkl_dnn-master/install/
+export MKLDNNROOT=${MKLDNNROOT:-/export/users/mgouicem/ipl_mkl_dnn-master/install/}
 export LD_LIBRARY_PATH=$MKLDNNROOT/lib:$LD_LIBRARY_PATH
-export LIBXSMMROOT=/export/users/mgouicem/libxsmm
+export LIBXSMMROOT=${LIBXSMMROOT:-/export/users/mgouicem/libxsmm}
 
 source $tools_dir/setup_lnx_comp.sh 32e gnu491
 source $tools_dir/setup_lnx_comp.sh 32e 170
