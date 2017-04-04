@@ -65,7 +65,7 @@ endif
 
 CXX      = icpc
 CXXFLAGS = -Wall -std=c++11 $(OPTFLAGS) $(EXTRACXXFLAGS) -DINPUT_H=\"$(INPUT_H)\"
-LFLAGS   = -lrt
+LFLAGS   = -liomp5 -lrt
 OBJS     = std_conv_bench.o
 
 all : std_conv_bench
