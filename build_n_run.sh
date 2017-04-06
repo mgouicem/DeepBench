@@ -47,7 +47,7 @@ $library_tested  Convolution - ${num_threads} threads
 started...
 EOF
 
-        $pre_cmd ./std_conv_bench 0 --csv-output >> $workdir/logs/$output_file
+        $pre_cmd ./std_conv_bench 0 --csv-output | tee $workdir/logs/$output_file
         
         cat <<EOF
 done
