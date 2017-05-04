@@ -33,6 +33,10 @@
 #define BWD_F_CONVOLUTION 1
 #define BWD_D_CONVOLUTION 2
 
+#ifndef PASS_LIST
+#define PASS_LIST {FWD_CONVOLUTION,BWD_F_CONVOLUTION,BWD_D_CONVOLUTION}
+#endif
+
 // Calculates convolution output dimension using the definition from Caffe
 static inline int calc_out_dim(
         int input_dim, int filter_dim, int padd, int stride)
@@ -195,7 +199,9 @@ static bench_result bench_conv(conv_problem prob, int mode, bool skip_padding)
 
 #ifdef USE_MKLDNN
 
+#ifndef COMPUTE_BWD_BIAS
 #define COMPUTE_BWD_BIAS 0
+#endif 
 
 #include "mkldnn.hpp"
 
@@ -230,7 +236,9 @@ static bench_result bench_conv(conv_problem prob, int mode, bool skip_padding)
 
     auto fwd_conv_pd = convolution_forward::primitive_desc(
             {prop_kind::forward_training, algorithm::convolution_direct,
-            src_d, filter_d, bias_d, dst_d,
+            src_d, filter_d,
+                    bias_d,
+                    dst_d,
             strides, padding, padding, padding_kind::zero}, eng);
 
     if (mode == FWD_CONVOLUTION) {
@@ -516,7 +524,7 @@ int main(int argc, char **argv)
 
     if (csv_output)
         printf("thread_cnt,conv_mode_strs,skip_padding,name,minibatch,w,h,ic,oc,fw,fh,stride,stride,padd,padd,min_ms,max_gflops,avg_ms,avg_gflops\n");
-    for (auto m : {FWD_CONVOLUTION, BWD_F_CONVOLUTION, BWD_D_CONVOLUTION}) {
+    for (auto m : PASS_LIST) {
         if (!csv_output)
             printf(" %s Convolution\n", conv_mode_strs[m]);
         for (const auto& p : conv_problems) {

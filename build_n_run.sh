@@ -14,6 +14,9 @@ nb_cores=${nb_cores:-$(lscpu | awk '/Socket/{ print $2*nc } /Core/{ nc=$4} ')}
 pre_cmd=$(numactl --hardware | awk '/node [0-9] cpus:$/ {print "numactl -m "$2; quit}')
 #selects which test to run
 run=${run:-mkl,mkldnn,libxsmm}
+pass=${pass:=fwd,bwd_f,bwd_d}
+
+pass_list=$(awk 'BEGIN{FS=","; OFS=",";} {for(i=1;i<NF;i++){printf "%s,", toupper($i) "_CONVOLUTION"}; print toupper($NF) "_CONVOLUTION"}' <<< $pass)
 
 tools_dir=/nfs/site/proj/mkl/mirror/NS/MKLQA/tools/setenv
 export MKLDNNROOT=${MKLDNNROOT:-/project/mgouicem/MKL-DNN/ipl_mkl_dnn-master/install/}
@@ -62,20 +65,20 @@ cd $workdir/code/intel/convolution/mkl_conv
 ## Pure MKL bench
 if $(echo $run | grep -wq mkl)
 then
-    make -B clean all INPUT_H=$input_h CONVLIB=MKL CPPFLAGS="$CPPFLAGS"
+    make -B clean all INPUT_H=$input_h CONVLIB=MKL CPPFLAGS="$CPPFLAGS -DPASS_LIST=\{$pass_list\}"
     run_bench_mkl "MKL" "${timestamp}-mkl${file_suffix}.csv"
 fi
 
 ## MKL-DNN bench
 if $(echo $run | grep -wq mkldnn)
 then
-    make -B clean all INPUT_H=$input_h CONVLIB=MKLDNN MKLDNNROOT=$MKLDNNROOT CPPFLAGS="$CPPFLAGS"
+    make -B clean all INPUT_H=$input_h CONVLIB=MKLDNN MKLDNNROOT=$MKLDNNROOT CPPFLAGS="$CPPFLAGS -DPASS_LIST=\{$pass_list\}"
     run_bench_mkl "MKL-DNN" "${timestamp}-mkldnn${file_suffix}.csv"
 fi
 
 # libxsmm bench
 if $(echo $run | grep -wq libxsmm)
 then
-    make -B clean all INPUT_H=$input_h CONVLIB=LIBXSMM LIBXSMMROOT=$LIBXSMMROOT CPPFLAGS="$CPPFLAGS"
+    make -B clean all INPUT_H=$input_h CONVLIB=LIBXSMM LIBXSMMROOT=$LIBXSMMROOT CPPFLAGS="$CPPFLAGS -DPASS_LIST=\{$pass_list\}"
     run_bench_mkl "LIBXSMM" "${timestamp}-libxsmm${file_suffix}.csv"
 fi
