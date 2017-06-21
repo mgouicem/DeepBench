@@ -32,24 +32,24 @@ struct conv_problem {
 };
 
 static const std::vector<conv_problem> conv_problems = {
-    // DeepBench
+    /*  /\* DeepBench *\/ */
     /* {1, 16, 480, 48, 1, 16, 3, 3, 1, 1, 1000, "DeepBench"}, */
     /* {1, 8, 224, 224, 3, 64, 3, 3, 1, 1, 1000, "DeepBench"}, */
     /* {1, 16, 224, 224, 3, 64, 3, 3, 1, 1, 1000, "DeepBench"}, */
-    // Topology: alexnet
-    {1, 256, 13, 13, 256, 384, 3, 3, 1, 1, 1000, "alexnet:conv3"},
-    {2, 256, 13, 13, 384, 384, 3, 3, 1, 1, 1000, "alexnet:conv4"},
-    {2, 256, 13, 13, 384, 256, 3, 3, 1, 1, 1000, "alexnet:conv5"},
-    // Topology: alexnet-convnet
-    {1, 256, 13, 13, 192, 384, 3, 3, 1, 1, 1000, "alexnet-convnet:conv3"},
-    {2, 256, 13, 13, 384, 256, 3, 3, 1, 1, 1000, "alexnet-convnet:conv4"},
-    {2, 256, 13, 13, 256, 256, 3, 3, 1, 1, 1000, "alexnet-convnet:conv5"},
-    // Topology: vgg_19
-    {1, 64, 224, 224, 3, 64, 3, 3, 1, 1, 1000, "vgg_19:conv1_1"},
-    {1, 64, 224, 224, 64, 64, 3, 3, 1, 1, 1000, "vgg_19:conv1_2"},
+    /* /\* Topology: alexnet *\/ */
+    /* {1, 256, 13, 13, 256, 384, 3, 3, 1, 1, 1000, "alexnet:conv3"}, */
+    /* {2, 256, 13, 13, 384, 384, 3, 3, 1, 1, 1000, "alexnet:conv4"}, */
+    /* {2, 256, 13, 13, 384, 256, 3, 3, 1, 1, 1000, "alexnet:conv5"}, */
+    /* /\* Topology: alexnet-convnet *\/ */
+    /* {1, 256, 13, 13, 192, 384, 3, 3, 1, 1, 1000, "alexnet-convnet:conv3"}, */
+    /* {2, 256, 13, 13, 384, 256, 3, 3, 1, 1, 1000, "alexnet-convnet:conv4"}, */
+    /* {2, 256, 13, 13, 256, 256, 3, 3, 1, 1, 1000, "alexnet-convnet:conv5"}, */
+    /* /\* Topology: vgg_19 *\/ */
+    /* {1, 64, 224, 224, 3, 64, 3, 3, 1, 1, 1000, "vgg_19:conv1_1"}, */
+    /* {1, 64, 224, 224, 64, 64, 3, 3, 1, 1, 1000, "vgg_19:conv1_2"}, */
     {1, 64, 56, 56, 256, 256, 3, 3, 1, 1, 1000, "vgg_19:conv3_3"},
     {1, 64, 56, 56, 256, 256, 3, 3, 1, 1, 1000, "vgg_19:conv3_4"},
-    // Topology: resnet_50
+    /*  /\* Topology: resnet_50 *\/ */
     {1, 50, 56, 56, 64, 64, 3, 3, 1, 1, 1000, "resnet_50:res2a_branch2b"},
     {1, 50, 56, 56, 64, 64, 3, 3, 1, 1, 1000, "resnet_50:res2b_branch2b"},
     {1, 50, 56, 56, 64, 64, 3, 3, 1, 1, 1000, "resnet_50:res2c_branch2b"},
@@ -66,43 +66,43 @@ static const std::vector<conv_problem> conv_problems = {
     {1, 50, 7, 7, 512, 512, 3, 3, 1, 1, 1000, "resnet_50:res5a_branch2b"},
     {1, 50, 7, 7, 512, 512, 3, 3, 1, 1, 1000, "resnet_50:res5b_branch2b"},
     {1, 50, 7, 7, 512, 512, 3, 3, 1, 1, 1000, "resnet_50:res5c_branch2b"},
-    // Topology: googlenet_v1
-    {1, 92, 56, 56, 64, 192, 3, 3, 1, 1, 1000, "googlenet_v1:conv2/3x3"},
-    {1, 92, 28, 28, 96, 128, 3, 3, 1, 1, 1000, "googlenet_v1:inception_3a/3x3"},
-    {1, 92, 28, 28, 128, 192, 3, 3, 1, 1, 1000, "googlenet_v1:inception_3b/3x3"},
-    {1, 92, 14, 14, 96, 208, 3, 3, 1, 1, 1000, "googlenet_v1:inception_4a/3x3"},
-    {1, 92, 14, 14, 112, 224, 3, 3, 1, 1, 1000, "googlenet_v1:inception_4b/3x3"},
-    {1, 92, 14, 14, 128, 256, 3, 3, 1, 1, 1000, "googlenet_v1:inception_4c/3x3"},
-    {1, 92, 14, 14, 144, 288, 3, 3, 1, 1, 1000, "googlenet_v1:inception_4d/3x3"},
-    {1, 92, 14, 14, 160, 320, 3, 3, 1, 1, 1000, "googlenet_v1:inception_4e/3x3"},
-    {1, 92, 7, 7, 160, 320, 3, 3, 1, 1, 1000, "googlenet_v1:inception_5a/3x3"},
-    {1, 92, 7, 7, 192, 384, 3, 3, 1, 1, 1000, "googlenet_v1:inception_5b/3x3"},
-    // Topology: googlenet_v2
-    {1, 32, 56, 56, 64, 192, 3, 3, 1, 1, 1000, "googlenet_v2:conv2/3x3"},
-    {1, 32, 28, 28, 64, 64, 3, 3, 1, 1, 1000, "googlenet_v2:inception_3a/3x3"},
-    {1, 32, 28, 28, 64, 96, 3, 3, 1, 1, 1000, "googlenet_v2:inception_3a/double3x3a"},
-    {1, 32, 28, 28, 96, 96, 3, 3, 1, 1, 1000, "googlenet_v2:inception_3a/double3x3b"},
-    {1, 32, 28, 28, 64, 96, 3, 3, 1, 1, 1000, "googlenet_v2:inception_3b/3x3"},
-    {1, 32, 28, 28, 64, 96, 3, 3, 1, 1, 1000, "googlenet_v2:inception_3b/double3x3a"},
-    {1, 32, 28, 28, 96, 96, 3, 3, 1, 1, 1000, "googlenet_v2:inception_3b/double3x3b"},
-    {1, 32, 28, 28, 64, 96, 3, 3, 1, 1, 1000, "googlenet_v2:inception_3c/double3x3a"},
-    {1, 32, 14, 14, 64, 96, 3, 3, 1, 1, 1000, "googlenet_v2:inception_4a/3x3"},
-    {1, 32, 14, 14, 96, 128, 3, 3, 1, 1, 1000, "googlenet_v2:inception_4a/double3x3a"},
-    {1, 32, 14, 14, 128, 128, 3, 3, 1, 1, 1000, "googlenet_v2:inception_4a/double3x3b"},
-    {1, 32, 14, 14, 96, 128, 3, 3, 1, 1, 1000, "googlenet_v2:inception_4b/3x3"},
-    {1, 32, 14, 14, 96, 128, 3, 3, 1, 1, 1000, "googlenet_v2:inception_4b/double3x3a"},
-    {1, 32, 14, 14, 128, 128, 3, 3, 1, 1, 1000, "googlenet_v2:inception_4b/double3x3b"},
-    {1, 32, 14, 14, 128, 160, 3, 3, 1, 1, 1000, "googlenet_v2:inception_4c/3x3"},
-    {1, 32, 14, 14, 128, 160, 3, 3, 1, 1, 1000, "googlenet_v2:inception_4c/double3x3a"},
-    {1, 32, 14, 14, 160, 160, 3, 3, 1, 1, 1000, "googlenet_v2:inception_4c/double3x3b"},
-    {1, 32, 14, 14, 128, 192, 3, 3, 1, 1, 1000, "googlenet_v2:inception_4d/3x3"},
-    {1, 32, 14, 14, 160, 192, 3, 3, 1, 1, 1000, "googlenet_v2:inception_4d/double3x3a"},
-    {1, 32, 14, 14, 192, 192, 3, 3, 1, 1, 1000, "googlenet_v2:inception_4d/double3x3b"},
-    {1, 32, 14, 14, 192, 256, 3, 3, 1, 1, 1000, "googlenet_v2:inception_4e/double3x3a"},
-    {1, 32, 7, 7, 192, 320, 3, 3, 1, 1, 1000, "googlenet_v2:inception_5a/3x3"},
-    {1, 32, 7, 7, 160, 224, 3, 3, 1, 1, 1000, "googlenet_v2:inception_5a/double3x3a"},
-    {1, 32, 7, 7, 224, 224, 3, 3, 1, 1, 1000, "googlenet_v2:inception_5a/double3x3b"},
-    {1, 32, 7, 7, 192, 320, 3, 3, 1, 1, 1000, "googlenet_v2:inception_5b/3x3"},
-    {1, 32, 7, 7, 192, 224, 3, 3, 1, 1, 1000, "googlenet_v2:inception_5b/double3x3a"},
-    {1, 32, 7, 7, 224, 224, 3, 3, 1, 1, 1000, "googlenet_v2:inception_5b/double3x3b"},
+     /* Topology: googlenet_v1 */
+    {1, 96, 56, 56, 64, 192, 3, 3, 1, 1, 1000, "googlenet_v1:conv2/3x3"},
+    {1, 96, 28, 28, 96, 128, 3, 3, 1, 1, 1000, "googlenet_v1:inception_3a/3x3"},
+    {1, 96, 28, 28, 128, 192, 3, 3, 1, 1, 1000, "googlenet_v1:inception_3b/3x3"},
+    {1, 96, 14, 14, 96, 208, 3, 3, 1, 1, 1000, "googlenet_v1:inception_4a/3x3"},
+    {1, 96, 14, 14, 112, 224, 3, 3, 1, 1, 1000, "googlenet_v1:inception_4b/3x3"},
+    {1, 96, 14, 14, 128, 256, 3, 3, 1, 1, 1000, "googlenet_v1:inception_4c/3x3"},
+    {1, 96, 14, 14, 144, 288, 3, 3, 1, 1, 1000, "googlenet_v1:inception_4d/3x3"},
+    {1, 96, 14, 14, 160, 320, 3, 3, 1, 1, 1000, "googlenet_v1:inception_4e/3x3"},
+    {1, 96, 7, 7, 160, 320, 3, 3, 1, 1, 1000, "googlenet_v1:inception_5a/3x3"},
+    {1, 96, 7, 7, 192, 384, 3, 3, 1, 1, 1000, "googlenet_v1:inception_5b/3x3"},
+     /* Topology: googlenet_v2 */
+    {1, 96, 56, 56, 64, 192, 3, 3, 1, 1, 1000, "googlenet_v2:conv2/3x3"},
+    {1, 96, 28, 28, 64, 64, 3, 3, 1, 1, 1000, "googlenet_v2:inception_3a/3x3"},
+    {1, 96, 28, 28, 64, 96, 3, 3, 1, 1, 1000, "googlenet_v2:inception_3a/double3x3a"},
+    {1, 96, 28, 28, 96, 96, 3, 3, 1, 1, 1000, "googlenet_v2:inception_3a/double3x3b"},
+    {1, 96, 28, 28, 64, 96, 3, 3, 1, 1, 1000, "googlenet_v2:inception_3b/3x3"},
+    {1, 96, 28, 28, 64, 96, 3, 3, 1, 1, 1000, "googlenet_v2:inception_3b/double3x3a"},
+    {1, 96, 28, 28, 96, 96, 3, 3, 1, 1, 1000, "googlenet_v2:inception_3b/double3x3b"},
+    {1, 96, 28, 28, 64, 96, 3, 3, 1, 1, 1000, "googlenet_v2:inception_3c/double3x3a"},
+    {1, 96, 14, 14, 64, 96, 3, 3, 1, 1, 1000, "googlenet_v2:inception_4a/3x3"},
+    {1, 96, 14, 14, 96, 128, 3, 3, 1, 1, 1000, "googlenet_v2:inception_4a/double3x3a"},
+    {1, 96, 14, 14, 128, 128, 3, 3, 1, 1, 1000, "googlenet_v2:inception_4a/double3x3b"},
+    {1, 96, 14, 14, 96, 128, 3, 3, 1, 1, 1000, "googlenet_v2:inception_4b/3x3"},
+    {1, 96, 14, 14, 96, 128, 3, 3, 1, 1, 1000, "googlenet_v2:inception_4b/double3x3a"},
+    {1, 96, 14, 14, 128, 128, 3, 3, 1, 1, 1000, "googlenet_v2:inception_4b/double3x3b"},
+    {1, 96, 14, 14, 128, 160, 3, 3, 1, 1, 1000, "googlenet_v2:inception_4c/3x3"},
+    {1, 96, 14, 14, 128, 160, 3, 3, 1, 1, 1000, "googlenet_v2:inception_4c/double3x3a"},
+    {1, 96, 14, 14, 160, 160, 3, 3, 1, 1, 1000, "googlenet_v2:inception_4c/double3x3b"},
+    {1, 96, 14, 14, 128, 192, 3, 3, 1, 1, 1000, "googlenet_v2:inception_4d/3x3"},
+    {1, 96, 14, 14, 160, 192, 3, 3, 1, 1, 1000, "googlenet_v2:inception_4d/double3x3a"},
+    {1, 96, 14, 14, 192, 192, 3, 3, 1, 1, 1000, "googlenet_v2:inception_4d/double3x3b"},
+    {1, 96, 14, 14, 192, 256, 3, 3, 1, 1, 1000, "googlenet_v2:inception_4e/double3x3a"},
+    {1, 96, 7, 7, 192, 320, 3, 3, 1, 1, 1000, "googlenet_v2:inception_5a/3x3"},
+    {1, 96, 7, 7, 160, 224, 3, 3, 1, 1, 1000, "googlenet_v2:inception_5a/double3x3a"},
+    {1, 96, 7, 7, 224, 224, 3, 3, 1, 1, 1000, "googlenet_v2:inception_5a/double3x3b"},
+    {1, 96, 7, 7, 192, 320, 3, 3, 1, 1, 1000, "googlenet_v2:inception_5b/3x3"},
+    {1, 96, 7, 7, 192, 224, 3, 3, 1, 1, 1000, "googlenet_v2:inception_5b/double3x3a"},
+    {1, 96, 7, 7, 224, 224, 3, 3, 1, 1, 1000, "googlenet_v2:inception_5b/double3x3b"},
 };

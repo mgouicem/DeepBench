@@ -37,6 +37,11 @@
 #define PASS_LIST {FWD_CONVOLUTION,BWD_F_CONVOLUTION,BWD_D_CONVOLUTION}
 #endif
 
+#ifndef MKLDNN_ALGORITHM
+#define MKLDNN_ALGORITHM algorithm::convolution_winograd
+#endif
+
+ 
 // Calculates convolution output dimension using the definition from Caffe
 static inline int calc_out_dim(
         int input_dim, int filter_dim, int padd, int stride)
@@ -235,7 +240,7 @@ static bench_result bench_conv(conv_problem prob, int mode, bool skip_padding)
     std::shared_ptr<memory> bias;
 
     auto fwd_conv_pd = convolution_forward::primitive_desc(
-            {prop_kind::forward_training, algorithm::convolution_direct,
+            {prop_kind::forward_training, MKLDNN_ALGORITHM,
             src_d, filter_d,
                     bias_d,
                     dst_d,
@@ -250,7 +255,7 @@ static bench_result bench_conv(conv_problem prob, int mode, bool skip_padding)
                     *src, *filter, *bias, *dst));
     } else if (mode == BWD_D_CONVOLUTION) {
         auto bwd_d_conv_pd = convolution_backward_data::primitive_desc(
-                {algorithm::convolution_direct, src_d, filter_d, dst_d,
+                {MKLDNN_ALGORITHM, src_d, filter_d, dst_d,
                 strides, padding, padding, padding_kind::zero}, eng,
                 fwd_conv_pd);
         src.reset(new memory(bwd_d_conv_pd.diff_src_primitive_desc()));
@@ -260,7 +265,7 @@ static bench_result bench_conv(conv_problem prob, int mode, bool skip_padding)
                     *dst, *filter, *src));
     } else if (mode == BWD_F_CONVOLUTION) {
         auto bwd_f_conv_pd = convolution_backward_weights::primitive_desc(
-                {algorithm::convolution_direct, src_d, filter_d,
+                {MKLDNN_ALGORITHM, src_d, filter_d,
 #if COMPUTE_BWD_BIAS
                 bias_d,
 #endif
